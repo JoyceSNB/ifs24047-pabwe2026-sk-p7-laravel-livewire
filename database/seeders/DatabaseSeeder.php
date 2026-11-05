@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Features\Stock\Models\Stock;
+use App\Features\Todo\Models\Todo;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::firstOrCreate(
+        $admin = User::firstOrCreate(
             ['email' => 'admin@example.com'],
             [
                 'name' => 'Administrator',
@@ -37,42 +37,30 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Stock::firstOrCreate(
-            ['user_id' => $member->id, 'name' => 'Laptop Lenovo ThinkPad'],
+        Todo::firstOrCreate(
+            ['user_id' => $member->id, 'title' => 'Mempelajari Arsitektur Laravel 13'],
             [
-                'sku' => 'LPT-001',
-                'description' => 'Laptop untuk kebutuhan kantor dengan **RAM 16 GB**.',
-                'quantity' => 25,
-                'unit' => 'unit',
-                'price' => 12500000,
-                'min_stock' => 5,
-                'status' => 'available',
+                'description' => 'Memahami fitur baru Laravel 13 dan implementasi feature-first approach.',
+                'status' => 'completed',
+                'due_date' => now()->addDays(2)->format('Y-m-d'),
             ]
         );
 
-        Stock::firstOrCreate(
-            ['user_id' => $member->id, 'name' => 'Mouse Wireless Logitech'],
+        Todo::firstOrCreate(
+            ['user_id' => $member->id, 'title' => 'Mengembangkan Komponen Livewire'],
             [
-                'sku' => 'MSE-002',
-                'description' => 'Mouse nirkabel dengan baterai tahan lama.',
-                'quantity' => 3,
-                'unit' => 'pcs',
-                'price' => 250000,
-                'min_stock' => 5,
-                'status' => 'low_stock',
+                'description' => 'Membuat komponen interaktif untuk CRUD todolist.',
+                'status' => 'in_progress',
+                'due_date' => now()->addDays(5)->format('Y-m-d'),
             ]
         );
 
-        Stock::firstOrCreate(
-            ['user_id' => $member->id, 'name' => 'Keyboard Mechanical'],
+        Todo::firstOrCreate(
+            ['user_id' => $member->id, 'title' => 'Integrasi OpenAI dan Excel Export/Import'],
             [
-                'sku' => 'KBD-003',
-                'description' => 'Keyboard mekanikal layout 75%.',
-                'quantity' => 0,
-                'unit' => 'pcs',
-                'price' => 750000,
-                'min_stock' => 5,
-                'status' => 'out_of_stock',
+                'description' => 'Implementasi Phpspreadsheet dan integrasi OpenAI endpoint.',
+                'status' => 'pending',
+                'due_date' => now()->addDays(7)->format('Y-m-d'),
             ]
         );
     }
