@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('todos', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('title');
+            $table->string('name');
+            $table->string('sku')->nullable();
             $table->text('description')->nullable();
-            $table->string('status')->default('pending');
-            $table->date('due_date')->nullable();
+            $table->unsignedInteger('quantity')->default(0);
+            $table->string('unit')->default('pcs');
+            $table->decimal('price', 12, 2)->nullable();
+            $table->unsignedInteger('min_stock')->default(5);
+            $table->string('status')->default('available');
             $table->timestamps();
         });
     }
@@ -27,7 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('todos');
+        Schema::dropIfExists('stocks');
     }
 };
-

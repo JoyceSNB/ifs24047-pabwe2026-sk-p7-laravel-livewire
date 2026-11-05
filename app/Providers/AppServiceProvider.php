@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use App\Features\Ai\Contracts\AiClientInterface;
 use App\Features\Ai\Services\OpenAiTodoGeneratorService;
-use App\Features\Todo\Contracts\TodoRepositoryInterface;
-use App\Features\Todo\Models\Todo;
-use App\Features\Todo\Policies\TodoPolicy;
-use App\Features\Todo\Repositories\TodoRepository;
+use App\Features\Stock\Contracts\StockRepositoryInterface;
+use App\Features\Stock\Models\Stock;
+use App\Features\Stock\Policies\StockPolicy;
+use App\Features\Stock\Repositories\StockRepository;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(TodoRepositoryInterface::class, TodoRepository::class);
+        $this->app->bind(StockRepositoryInterface::class, StockRepository::class);
         $this->app->bind(AiClientInterface::class, OpenAiTodoGeneratorService::class);
     }
 
@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        Gate::policy(Todo::class, TodoPolicy::class);
+        Gate::policy(Stock::class, StockPolicy::class);
 
         RateLimiter::for('1000-per-second', function (Request $request) {
             return Limit::perSecond(1000)->by($request->user()?->id ?: $request->ip());
