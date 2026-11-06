@@ -3,7 +3,7 @@
 namespace Tests\Unit\Providers;
 
 use App\Features\Ai\Contracts\AiClientInterface;
-use App\Features\Ai\Services\OpenAiTodoGeneratorService;
+use App\Features\Ai\Services\OpenAiStockGeneratorService;
 use App\Features\Stock\Contracts\StockRepositoryInterface;
 use App\Features\Stock\Repositories\StockRepository;
 use App\Providers\AppServiceProvider;
@@ -20,7 +20,7 @@ class AppServiceProviderTest extends TestCase
         $this->assertInstanceOf(StockRepository::class, $repo);
 
         $ai = app(AiClientInterface::class);
-        $this->assertInstanceOf(OpenAiTodoGeneratorService::class, $ai);
+        $this->assertInstanceOf(OpenAiStockGeneratorService::class, $ai);
     }
 
     public function test_force_https_configuration(): void

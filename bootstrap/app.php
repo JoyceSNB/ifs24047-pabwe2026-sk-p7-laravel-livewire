@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'role' => \App\Http\Middleware\EnsureRole::class,
-            'owns.todo' => \App\Http\Middleware\EnsureTodoOwnership::class,
+             'owns.stock' => \App\Http\Middleware\EnsureStockOwnership::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

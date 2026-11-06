@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Features\Todo\Models\Todo;
+use App\Features\Stock\Models\Stock;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -61,12 +61,12 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all todos belonging to the user.
+     * Get all stocks belonging to the user.
      *
-     * @return HasMany<Todo, $this>
+     * @return HasMany<Stock, $this>
      */
-    public function todos(): HasMany
+    public function stocks(): HasMany
     {
-        return $this->hasMany(Todo::class);
+        return $this->hasMany(Stock::class);
     }
 }

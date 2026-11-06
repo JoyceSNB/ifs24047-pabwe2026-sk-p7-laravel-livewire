@@ -2,15 +2,14 @@
 
 namespace App\Features\Ai\Contracts;
 
-use App\Features\Ai\DTO\GeneratedTodoItem;
+use App\Features\Ai\DTO\GeneratedStockItem;
 
 interface AiClientInterface
 {
     /**
-     * Generate multiple structured todo items based on a prompt.
+     * Generate multiple structured stock items based on a prompt.
      *
-     * @return array<int, GeneratedTodoItem>
+     * @return array<int, GeneratedStockItem>
      */
-    public function generateTodos(string $prompt, int $count = 3): array;
+    public function generateStocks(string $prompt, int $count = 3): array;
 }
-

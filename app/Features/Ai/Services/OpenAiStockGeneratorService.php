@@ -3,12 +3,11 @@
 namespace App\Features\Ai\Services;
 
 use App\Features\Ai\Contracts\AiClientInterface;
-use App\Features\Ai\DTO\GeneratedTodoItem;
-use Carbon\Carbon;
+use App\Features\Ai\DTO\GeneratedStockItem;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
-class OpenAiTodoGeneratorService implements AiClientInterface
+class OpenAiStockGeneratorService implements AiClientInterface
 {
     protected string $endpoint;
     protected string $apiKey;
@@ -41,13 +40,13 @@ class OpenAiTodoGeneratorService implements AiClientInterface
     }
 
     /**
-     * Generate multiple structured todo items based on a user prompt.
+     * Generate multiple structured stock items based on a user prompt.
      *
-     * @return array<int, GeneratedTodoItem>
+     * @return array<int, GeneratedStockItem>
      *
      * @throws RuntimeException
      */
-    public function generateTodos(string $prompt, int $count = 3): array
+    public function generateStocks(string $prompt, int $count = 3): array
     {
         $prompt = trim($prompt);
         if ($prompt === '') {
@@ -55,23 +54,26 @@ class OpenAiTodoGeneratorService implements AiClientInterface
         }
 
         $count = max(1, $count);
-        $today = Carbon::today()->format('Y-m-d');
 
         $systemPrompt = <<<SYS
-You are an expert productivity assistant. Your task is to generate exactly {$count} realistic, actionable, and structured todo items based on the user's request.
-Today's date is {$today}.
+You are an expert inventory management assistant. Your task is to generate exactly {$count} realistic inventory (stock) items based on the user's request.
 
 You MUST respond strictly with a valid JSON object matching this schema:
 {
-  "todos": [
+  "stocks": [
     {
-      "title": "Clear concise task title (max 100 chars)",
-      "description": "Brief helpful actionable details about how to complete it",
-      "due_date": "YYYY-MM-DD or null"
+      "name": "Product name (max 100 chars)",
+      "sku": "Short unique SKU code, e.g. LPT-001",
+      "description": "Brief product description",
+      "quantity": 25,
+      "unit": "pcs",
+      "price": 150000,
+      "min_stock": 5
     }
   ]
 }
 
+Rules: quantity and min_stock are non-negative integers, price is a number in Indonesian Rupiah, unit is a short word such as pcs, box, kg, or liter.
 Do not include any conversational text, introductory words, or explanations outside the JSON.
 SYS;
 
@@ -93,13 +95,14 @@ SYS;
         }
 
         $rawContent = (string) $response->json('choices.0.message.content');
+
         return $this->parseContent($rawContent);
     }
 
     /**
-     * Parse raw string content into an array of GeneratedTodoItem.
+     * Parse raw string content into an array of GeneratedStockItem.
      *
-     * @return array<int, GeneratedTodoItem>
+     * @return array<int, GeneratedStockItem>
      */
     public function parseContent(string $rawContent): array
     {
@@ -118,48 +121,48 @@ SYS;
             throw new RuntimeException('AI mengembalikan format respon yang tidak valid.');
         }
 
-        // Support both {"todos": [...]} and [...]
-        $items = isset($decoded['todos']) && is_array($decoded['todos'])
-            ? $decoded['todos']
+        // Support both {"stocks": [...]} and [...]
+        $items = isset($decoded['stocks']) && is_array($decoded['stocks'])
+            ? $decoded['stocks']
             : (array_is_list($decoded) ? $decoded : []);
 
         if (empty($items)) {
-            throw new RuntimeException('Tidak ada todo yang berhasil di-generate dari AI.');
+            throw new RuntimeException('Tidak ada item stok yang berhasil di-generate dari AI.');
         }
 
         $results = [];
         foreach ($items as $item) {
-            if (!is_array($item) || empty($item['title'])) {
+            if (!is_array($item) || empty($item['name'])) {
                 continue;
             }
 
-            $title = trim((string) $item['title']);
+            $sku = isset($item['sku']) && trim((string) $item['sku']) !== ''
+                ? trim((string) $item['sku'])
+                : null;
+
             $description = isset($item['description']) && trim((string) $item['description']) !== ''
                 ? trim((string) $item['description'])
                 : null;
 
-            $dueDate = null;
-            if (!empty($item['due_date'])) {
-                try {
-                    $dueDate = Carbon::parse((string) $item['due_date'])->format('Y-m-d');
-                } catch (\Throwable) {
-                    $dueDate = null;
-                }
-            }
+            $unit = isset($item['unit']) && trim((string) $item['unit']) !== ''
+                ? trim((string) $item['unit'])
+                : 'pcs';
 
-            $results[] = new GeneratedTodoItem(
-                title: $title,
+            $results[] = new GeneratedStockItem(
+                name: trim((string) $item['name']),
+                sku: $sku,
                 description: $description,
-                dueDate: $dueDate,
-                status: 'pending',
+                quantity: isset($item['quantity']) && is_numeric($item['quantity']) ? max(0, (int) $item['quantity']) : 0,
+                unit: $unit,
+                price: isset($item['price']) && is_numeric($item['price']) ? (float) $item['price'] : null,
+                minStock: isset($item['min_stock']) && is_numeric($item['min_stock']) ? max(0, (int) $item['min_stock']) : 5,
             );
         }
 
         if (empty($results)) {
-            throw new RuntimeException('Format item todo yang dikembalikan AI tidak sesuai spesifikasi.');
+            throw new RuntimeException('Format item stok yang dikembalikan AI tidak sesuai spesifikasi.');
         }
 
         return $results;
     }
 }
-

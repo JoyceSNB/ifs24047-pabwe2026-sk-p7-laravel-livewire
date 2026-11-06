@@ -2,13 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use App\Features\Todo\Models\Todo;
+use App\Features\Stock\Models\Stock;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsureTodoOwnership
+class EnsureStockOwnership
 {
     /**
      * Handle an incoming request ensuring members do not access other users' data.
@@ -29,24 +29,24 @@ class EnsureTodoOwnership
             $targetUserId = $routeUser instanceof User ? $routeUser->id : (int) $routeUser;
 
             if ($currentUser->isMember() && $currentUser->id !== $targetUserId) {
-                abort(403, 'Akses ditolak: Member tidak dapat mengakses todolist orang lain.');
+                abort(403, 'Akses ditolak: Member tidak dapat mengakses stok orang lain.');
             }
         }
 
-        // Check if route has {todo} parameter
-        $routeTodo = $request->route('todo');
-        if ($routeTodo) {
-            $todo = $routeTodo instanceof Todo ? $routeTodo : Todo::find($routeTodo);
+        // Check if route has {stock} parameter
+        $routeStock = $request->route('stock');
+        if ($routeStock) {
+            $stock = $routeStock instanceof Stock ? $routeStock : Stock::find($routeStock);
 
-            if ($todo) {
-                // If member, must strictly own the todo
-                if ($currentUser->isMember() && $currentUser->id !== $todo->user_id) {
-                    abort(403, 'Akses ditolak: Member tidak dapat mengakses todolist orang lain.');
+            if ($stock) {
+                // If member, must strictly own the stock
+                if ($currentUser->isMember() && $currentUser->id !== $stock->user_id) {
+                    abort(403, 'Akses ditolak: Member tidak dapat mengakses stok orang lain.');
                 }
 
-                // If write method (PUT, PATCH, DELETE), even admin cannot modify other users' todos
-                if ($request->isMethodSafe() === false && $currentUser->id !== $todo->user_id) {
-                    abort(403, 'Akses ditolak: Hanya pemilik todolist yang dapat mengubah todolist ini.');
+                // If write method (PUT, PATCH, DELETE), even admin cannot modify other users' stocks
+                if ($request->isMethodSafe() === false && $currentUser->id !== $stock->user_id) {
+                    abort(403, 'Akses ditolak: Hanya pemilik stok yang dapat mengubah stok ini.');
                 }
             }
         }
@@ -54,4 +54,3 @@ class EnsureTodoOwnership
         return $next($request);
     }
 }
-
