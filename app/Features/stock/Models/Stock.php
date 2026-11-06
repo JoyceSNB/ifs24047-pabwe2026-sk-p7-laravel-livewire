@@ -1,20 +1,38 @@
 <?php
 
-namespace App\Features\Todo\Models;
+namespace App\Features\Stock\Models;
 
 use App\Models\User;
-use Database\Factories\TodoFactory;
+use Database\Factories\StockFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 
-#[Fillable(['user_id', 'title', 'description', 'status', 'due_date', 'cover_image_path'])]
-class Todo extends Model
+#[Fillable([
+    'user_id',
+    'name',
+    'sku',
+    'description',
+    'quantity',
+    'unit',
+    'price',
+    'min_stock',
+    'status',
+    'cover_image_path',
+])]
+class Stock extends Model
 {
-    /** @use HasFactory<TodoFactory> */
+    /** @use HasFactory<StockFactory> */
     use HasFactory;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'stocks';
 
     /**
      * Get the public URL for the cover image.
@@ -29,13 +47,6 @@ class Todo extends Model
     }
 
     /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'todos';
-
-    /**
      * The attributes that should be cast.
      *
      * @return array<string, string>
@@ -43,12 +54,14 @@ class Todo extends Model
     protected function casts(): array
     {
         return [
-            'due_date' => 'date',
+            'quantity' => 'integer',
+            'min_stock' => 'integer',
+            'price' => 'decimal:2',
         ];
     }
 
     /**
-     * Get the user that owns the todo.
+     * Get the user that owns the stock.
      *
      * @return BelongsTo<User, $this>
      */
@@ -60,9 +73,8 @@ class Todo extends Model
     /**
      * Create a new factory instance for the model.
      */
-    protected static function newFactory(): TodoFactory
+    protected static function newFactory(): StockFactory
     {
-        return TodoFactory::new();
+        return StockFactory::new();
     }
 }
-

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('todos', function (Blueprint $table) {
-            $table->string('cover_image_path')->nullable()->after('due_date');
+        Schema::table('stocks', function (Blueprint $table) {
+            $table->string('cover_image_path')->nullable()->after('status');
         });
     }
 
@@ -21,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('todos', function (Blueprint $table) {
+        Schema::table('stocks', function (Blueprint $table) {
             $table->dropColumn('cover_image_path');
         });
     }
 };
-
