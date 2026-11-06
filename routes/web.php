@@ -1,10 +1,11 @@
 <?php
 
-use App\Features\Admin\Livewire\AdminUserTodoList;
+use App\Features\Admin\Livewire\AdminUserStockList;
 use App\Features\Admin\Livewire\UserList;
 use App\Features\Auth\Livewire\Login;
 use App\Features\Auth\Livewire\Register;
-use App\Features\Todo\Livewire\TodoList;
+use App\Features\Stock\Livewire\StockDetail;
+use App\Features\Stock\Livewire\StockList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +16,7 @@ Route::middleware(['throttle:1000-per-second'])->group(function () {
         if (Auth::check()) {
             return Auth::user()->isAdmin()
                 ? redirect()->route('admin.users')
-                : redirect()->route('todos.index');
+                : redirect()->route('stocks.index');
         }
         return redirect()->route('login');
     });
@@ -35,13 +36,13 @@ Route::middleware(['throttle:1000-per-second'])->group(function () {
             return redirect()->route('login');
         })->name('logout');
 
-        // Member Todo Routes protected by ownership middleware
-        Route::get('/todos', TodoList::class)
-            ->middleware('owns.todo')
-            ->name('todos.index');
-        Route::get('/todos/{todo}', \App\Features\Todo\Livewire\TodoDetail::class)
-            ->middleware('owns.todo')
-            ->name('todos.show');
+        // Member Stock Routes protected by ownership middleware
+        Route::get('/stocks', StockList::class)
+            ->middleware('owns.stock')
+            ->name('stocks.index');
+        Route::get('/stocks/{stock}', StockDetail::class)
+            ->middleware('owns.stock')
+            ->name('stocks.show');
 
         // User Profile Route
         Route::get('/profile', \App\Features\Profile\Livewire\Profile::class)->name('profile');
@@ -49,7 +50,7 @@ Route::middleware(['throttle:1000-per-second'])->group(function () {
         // Admin Routes protected by Role middleware
         Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
             Route::get('/users', UserList::class)->name('users');
-            Route::get('/users/{user}/todos', AdminUserTodoList::class)->name('users.todos');
+            Route::get('/users/{user}/stocks', AdminUserStockList::class)->name('users.stocks');
         });
     });
 });

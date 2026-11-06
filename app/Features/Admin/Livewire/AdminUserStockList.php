@@ -3,8 +3,9 @@
 namespace App\Features\Admin\Livewire;
 
 use App\Features\Admin\Services\AdminUserService;
-use App\Features\Todo\Enums\TodoStatus;
-use App\Features\Todo\Services\TodoExcelService;
+use App\Features\Stock\Contracts\StockRepositoryInterface;
+use App\Features\Stock\Enums\StockStatus;
+use App\Features\Stock\Services\StockExcelService;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
@@ -14,8 +15,8 @@ use Livewire\WithPagination;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 #[Layout('components.layouts.app')]
-#[Title('User Todolist (Read Only) - Admin')]
-class AdminUserTodoList extends Component
+#[Title('Stok Pengguna (Read Only) - Admin')]
+class AdminUserStockList extends Component
 {
     use WithPagination;
 
@@ -43,27 +44,26 @@ class AdminUserTodoList extends Component
         $this->resetPage();
     }
 
-    public function exportExcel(TodoExcelService $excelService): StreamedResponse
+    public function exportExcel(StockExcelService $excelService, StockRepositoryInterface $stockRepository): StreamedResponse
     {
-        $todos = $this->user->todos()->latest('id')->get();
+        $stocks = $stockRepository->allForUser($this->user->id);
         $safeName = preg_replace('/[^A-Za-z0-9_-]/', '_', $this->user->name);
 
-        return $excelService->exportToResponse($todos, "todolist-{$safeName}-".now()->format('Ymd-His').'.xlsx');
+        return $excelService->exportToResponse($stocks, "stock-{$safeName}-".now()->format('Ymd-His').'.xlsx');
     }
 
     public function render(AdminUserService $adminService): View
     {
-        $todos = $adminService->getUserTodos(
+        $stocks = $adminService->getUserStocks(
             $this->user->id,
             $this->statusFilter ?: null,
             $this->search ?: null,
             10
         );
 
-        return view('livewire.admin.admin-user-todo-list', [
-            'todos' => $todos,
-            'statuses' => TodoStatus::cases(),
+        return view('livewire.admin.admin-user-stock-list', [
+            'stocks' => $stocks,
+            'statuses' => StockStatus::cases(),
         ]);
     }
 }
-

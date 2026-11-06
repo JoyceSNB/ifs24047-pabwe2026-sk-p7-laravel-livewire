@@ -2,22 +2,22 @@
 
 namespace App\Features\Admin\Services;
 
-use App\Features\Todo\Contracts\TodoRepositoryInterface;
+use App\Features\Stock\Contracts\StockRepositoryInterface;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class AdminUserService
 {
     public function __construct(
-        protected TodoRepositoryInterface $todoRepository
+        protected StockRepositoryInterface $stockRepository
     ) {}
 
     /**
-     * Get paginated list of all users with their todos count.
+     * Get paginated list of all users with their stocks count.
      */
     public function getUsersList(?string $search = null, int $perPage = 10): LengthAwarePaginator
     {
-        $query = User::query()->withCount('todos');
+        $query = User::query()->withCount('stocks');
 
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
@@ -31,11 +31,10 @@ class AdminUserService
     }
 
     /**
-     * Get read-only list of todos for a specific target user.
+     * Get read-only list of stocks for a specific target user.
      */
-    public function getUserTodos(int $userId, ?string $status = null, ?string $search = null, int $perPage = 10): LengthAwarePaginator
+    public function getUserStocks(int $userId, ?string $status = null, ?string $search = null, int $perPage = 10): LengthAwarePaginator
     {
-        return $this->todoRepository->forUser($userId, $status, $search, $perPage);
+        return $this->stockRepository->forUser($userId, $status, $search, $perPage);
     }
 }
-

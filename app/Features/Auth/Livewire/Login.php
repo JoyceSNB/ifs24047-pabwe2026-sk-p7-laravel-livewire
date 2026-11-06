@@ -10,7 +10,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('components.layouts.app')]
-#[Title('Login - TodoApp')]
+#[Title('Login - StockApp')]
 class Login extends Component
 {
     public string $login = '';
@@ -38,7 +38,7 @@ class Login extends Component
                 return $this->redirectRoute('admin.users', navigate: true);
             }
 
-            return $this->redirectRoute('todos.index', navigate: true);
+            return $this->redirectRoute('stocks.index', navigate: true);
         }
 
         $this->addError('login', 'Username/email atau password yang Anda masukkan tidak sesuai.');

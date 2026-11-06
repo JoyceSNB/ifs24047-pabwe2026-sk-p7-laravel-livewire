@@ -2,7 +2,7 @@
     <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
         <div class="text-center mb-6">
             <h2 class="text-2xl font-bold text-slate-900">Masuk ke Akun Anda</h2>
-            <p class="text-sm text-slate-500 mt-1">Kelola todolist harian Anda secara teratur dan produktif</p>
+            <p class="text-sm text-slate-500 mt-1">Kelola stok barang Anda secara teratur dan akurat</p>
         </div>
 
         <form wire:submit.prevent="authenticate" class="space-y-5">

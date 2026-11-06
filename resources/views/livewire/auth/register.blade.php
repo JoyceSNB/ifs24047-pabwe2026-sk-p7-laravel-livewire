@@ -2,7 +2,7 @@
     <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
         <div class="text-center mb-6">
             <h2 class="text-2xl font-bold text-slate-900">Buat Akun Member</h2>
-            <p class="text-sm text-slate-500 mt-1">Daftar sekarang untuk mulai mengelola todolist Anda</p>
+            <p class="text-sm text-slate-500 mt-1">Daftar sekarang untuk mulai mengelola stok barang Anda</p>
         </div>
 
         <form wire:submit.prevent="register" class="space-y-4">

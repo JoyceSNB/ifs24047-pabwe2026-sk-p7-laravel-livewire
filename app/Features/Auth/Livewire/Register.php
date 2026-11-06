@@ -10,7 +10,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('components.layouts.app')]
-#[Title('Register - TodoApp')]
+#[Title('Register - StockApp')]
 class Register extends Component
 {
     public string $name = '';
@@ -46,9 +46,9 @@ class Register extends Component
 
         Auth::login($user);
         session()->regenerate();
-        session()->flash('success', 'Registrasi berhasil! Selamat datang di TodoList Pro.');
+        session()->flash('success', 'Registrasi berhasil! Selamat datang di StockApp.');
 
-        return $this->redirectRoute('todos.index', navigate: true);
+        return $this->redirectRoute('stocks.index', navigate: true);
     }
 
     public function render(): View
