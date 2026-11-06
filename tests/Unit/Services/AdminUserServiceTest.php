@@ -29,6 +29,15 @@ class AdminUserServiceTest extends TestCase
         $this->assertCount(3, $list);
     }
 
+    public function test_get_users_list_includes_stocks_count(): void
+    {
+        $user = User::factory()->create();
+        Stock::factory()->count(2)->create(['user_id' => $user->id]);
+
+        $list = $this->service->getUsersList();
+        $this->assertEquals(2, $list->first()->stocks_count);
+    }
+
     public function test_get_users_list_with_search(): void
     {
         User::factory()->create(['name' => 'Alice Wonder', 'email' => 'alice@test.com']);
@@ -49,8 +58,19 @@ class AdminUserServiceTest extends TestCase
     {
         $user = User::factory()->create();
         Stock::factory()->count(4)->create(['user_id' => $user->id]);
+        Stock::factory()->create(); // milik user lain, tidak boleh ikut
 
         $stocks = $this->service->getUserStocks($user->id);
         $this->assertCount(4, $stocks);
+    }
+
+    public function test_get_user_stocks_with_filters(): void
+    {
+        $user = User::factory()->create();
+        Stock::factory()->create(['user_id' => $user->id, 'name' => 'Kabel USB-C']);
+        Stock::factory()->lowStock()->create(['user_id' => $user->id, 'name' => 'Lakban Bening']);
+
+        $this->assertCount(1, $this->service->getUserStocks($user->id, 'low_stock'));
+        $this->assertCount(1, $this->service->getUserStocks($user->id, null, 'Kabel'));
     }
 }
