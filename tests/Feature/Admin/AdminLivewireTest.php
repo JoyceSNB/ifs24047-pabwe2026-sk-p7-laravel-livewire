@@ -2,13 +2,12 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Features\Admin\Livewire\AdminUserTodoList;
+use App\Features\Admin\Livewire\AdminUserStockList;
 use App\Features\Admin\Livewire\UserList;
-use App\Features\Todo\Models\Todo;
+use App\Features\Stock\Models\Stock;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use Tests\TestCase;
 
 class AdminLivewireTest extends TestCase
@@ -25,7 +24,7 @@ class AdminLivewireTest extends TestCase
             ->assertStatus(403);
 
         $this->actingAs($member)
-            ->get("/admin/users/{$targetUser->id}/todos")
+            ->get("/admin/users/{$targetUser->id}/stocks")
             ->assertStatus(403);
     }
 
@@ -45,38 +44,38 @@ class AdminLivewireTest extends TestCase
             ->assertDontSee('Citra Lestari');
     }
 
-    public function test_admin_can_view_user_todos_read_only(): void
+    public function test_admin_can_view_user_stocks_read_only(): void
     {
         $admin = User::factory()->admin()->create();
         $member = User::factory()->member()->create(['name' => 'Dewi Sartika']);
 
-        Todo::factory()->create(['user_id' => $member->id, 'title' => 'Tugas Matematika', 'status' => 'pending']);
-        Todo::factory()->create(['user_id' => $member->id, 'title' => 'Tugas Fisika', 'status' => 'completed']);
+        Stock::factory()->create(['user_id' => $member->id, 'name' => 'Barang Matematika', 'status' => 'available']);
+        Stock::factory()->create(['user_id' => $member->id, 'name' => 'Barang Fisika', 'status' => 'low_stock']);
 
         $this->actingAs($admin);
 
-        Livewire::test(AdminUserTodoList::class, ['user' => $member])
+        Livewire::test(AdminUserStockList::class, ['user' => $member])
             ->assertSee('Dewi Sartika')
-            ->assertSee('Tugas Matematika')
-            ->assertSee('Tugas Fisika')
+            ->assertSee('Barang Matematika')
+            ->assertSee('Barang Fisika')
             ->set('search', 'Matematika')
-            ->assertSee('Tugas Matematika')
-            ->assertDontSee('Tugas Fisika')
+            ->assertSee('Barang Matematika')
+            ->assertDontSee('Barang Fisika')
             ->set('search', '')
-            ->set('statusFilter', 'completed')
-            ->assertSee('Tugas Fisika')
-            ->assertDontSee('Tugas Matematika');
+            ->set('statusFilter', 'low_stock')
+            ->assertSee('Barang Fisika')
+            ->assertDontSee('Barang Matematika');
     }
 
-    public function test_admin_can_export_user_todos(): void
+    public function test_admin_can_export_user_stocks(): void
     {
         $admin = User::factory()->admin()->create();
         $member = User::factory()->member()->create(['name' => 'Eko Prasetyo']);
-        Todo::factory()->create(['user_id' => $member->id, 'title' => 'Tugas Export Admin']);
+        Stock::factory()->create(['user_id' => $member->id, 'name' => 'Barang Export Admin']);
 
         $this->actingAs($admin);
 
-        Livewire::test(AdminUserTodoList::class, ['user' => $member])
+        Livewire::test(AdminUserStockList::class, ['user' => $member])
             ->call('exportExcel')
             ->assertFileDownloaded();
     }

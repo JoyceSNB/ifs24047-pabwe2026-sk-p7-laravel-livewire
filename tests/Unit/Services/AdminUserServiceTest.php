@@ -3,8 +3,8 @@
 namespace Tests\Unit\Services;
 
 use App\Features\Admin\Services\AdminUserService;
-use App\Features\Todo\Models\Todo;
-use App\Features\Todo\Repositories\TodoRepository;
+use App\Features\Stock\Models\Stock;
+use App\Features\Stock\Repositories\StockRepository;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -18,7 +18,7 @@ class AdminUserServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->service = new AdminUserService(new TodoRepository());
+        $this->service = new AdminUserService(new StockRepository());
     }
 
     public function test_get_users_list_without_search(): void
@@ -45,13 +45,12 @@ class AdminUserServiceTest extends TestCase
         $this->assertCount(1, $resultsByUsername);
     }
 
-    public function test_get_user_todos(): void
+    public function test_get_user_stocks(): void
     {
         $user = User::factory()->create();
-        Todo::factory()->count(4)->create(['user_id' => $user->id]);
+        Stock::factory()->count(4)->create(['user_id' => $user->id]);
 
-        $todos = $this->service->getUserTodos($user->id);
-        $this->assertCount(4, $todos);
+        $stocks = $this->service->getUserStocks($user->id);
+        $this->assertCount(4, $stocks);
     }
 }
-

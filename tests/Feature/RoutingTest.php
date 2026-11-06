@@ -16,13 +16,13 @@ class RoutingTest extends TestCase
             ->assertRedirect(route('login'));
     }
 
-    public function test_root_redirects_member_to_todos(): void
+    public function test_root_redirects_member_to_stocks(): void
     {
         $member = User::factory()->member()->create();
 
         $this->actingAs($member)
             ->get('/')
-            ->assertRedirect(route('todos.index'));
+            ->assertRedirect(route('stocks.index'));
     }
 
     public function test_root_redirects_admin_to_admin_users(): void

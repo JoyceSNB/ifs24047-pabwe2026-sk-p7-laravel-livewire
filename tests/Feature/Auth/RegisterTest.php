@@ -59,7 +59,7 @@ class RegisterTest extends TestCase
             ->set('password_confirmation', 'password123')
             ->call('register')
             ->assertHasNoErrors()
-            ->assertRedirect(route('todos.index'));
+            ->assertRedirect(route('stocks.index'));
 
         $this->assertAuthenticated();
         $this->assertDatabaseHas('users', [
