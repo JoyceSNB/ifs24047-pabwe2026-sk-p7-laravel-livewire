@@ -4,7 +4,7 @@
 
     <div class="mb-8">
         <h1 class="text-2xl font-bold text-slate-900">Pengaturan Profil</h1>
-        <p class="text-sm text-slate-500 mt-1">Kelola identitas diri, foto profil 1:1, dan keamanan akun Anda</p>
+        <p class="text-sm text-slate-600 mt-1">Kelola identitas diri, foto profil 1:1, dan keamanan akun Anda</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -51,7 +51,7 @@
                 @endif
             </div>
 
-            <p class="text-xs text-slate-400 mt-4">
+            <p class="text-xs text-slate-600 mt-4">
                 Mendukung PNG, JPG, GIF hingga 5MB. Foto otomatis dipotong menjadi rasio presisi 1:1.
             </p>
         </div>
@@ -65,20 +65,20 @@
                 <form wire:submit.prevent="updateProfileInformation" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap</label>
-                        <input wire:model="name" type="text" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                        <input aria-label="Nama lengkap" wire:model="name" type="text" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                         @error('name') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Username</label>
-                            <input wire:model="username" type="text" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" required>
+                            <input aria-label="Username" wire:model="username" type="text" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" required>
                             @error('username') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
-                            <input wire:model="email" type="email" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            <input aria-label="Email" wire:model="email" type="email" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" required>
                             @error('email') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -103,20 +103,20 @@
                 <form wire:submit.prevent="updatePassword" class="space-y-4">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Password Saat Ini</label>
-                        <input wire:model="current_password" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Password saat ini" required>
+                        <input aria-label="Password saat ini" wire:model="current_password" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Password saat ini" required>
                         @error('current_password') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Password Baru</label>
-                            <input wire:model="password" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Minimal 8 karakter" required>
+                           <input aria-label="Password baru" wire:model="password" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Minimal 8 karakter" required>
                             @error('password') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-slate-700 mb-1">Konfirmasi Password Baru</label>
-                            <input wire:model="password_confirmation" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ulangi password baru" required>
+                            <input aria-label="Konfirmasi password baru" wire:model="password_confirmation" type="password" class="w-full px-3.5 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Ulangi password baru" required>
                         </div>
                     </div>
 
@@ -173,7 +173,7 @@
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         <span>Sesuaikan Potongan Foto (Rasio 1:1)</span>
                     </h3>
-                    <button wire:click="closeCropModal" class="text-white/80 hover:text-white transition">
+                    <button aria-label="Tutup" wire:click="closeCropModal" class="text-white hover:text-slate-200 transition">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
                 </div>

@@ -1,8 +1,8 @@
 <div class="max-w-md mx-auto my-8">
     <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
         <div class="text-center mb-6">
-            <h2 class="text-2xl font-bold text-slate-900">Buat Akun Member</h2>
-            <p class="text-sm text-slate-500 mt-1">Daftar sekarang untuk mulai mengelola stok barang Anda</p>
+            <h1 class="text-2xl font-bold text-slate-900">Buat Akun Member</h1>
+            <p class="text-sm text-slate-600 mt-1">Daftar sekarang untuk mulai mengelola stok barang Anda</p>
         </div>
 
         <form wire:submit.prevent="register" class="space-y-4">
@@ -45,7 +45,7 @@
             </button>
         </form>
 
-        <div class="mt-6 text-center text-sm text-slate-500">
+        <div class="mt-6 text-center text-sm text-slate-600">
             Sudah memiliki akun?
             <a href="{{ route('login') }}" class="font-semibold text-blue-600 hover:text-blue-700">Masuk di sini</a>
         </div>

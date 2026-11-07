@@ -13,13 +13,13 @@
     <!-- Header -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
-            <a href="{{ route('stocks.index') }}" class="p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-200 transition" title="Kembali ke Daftar Stok">&larr;</a>
+            <a href="{{ route('stocks.index') }}" class="p-2 rounded-xl text-slate-600 hover:text-slate-800 hover:bg-slate-200 transition" title="Kembali ke Daftar Stok">&larr;</a>
             <div>
                 <div class="flex items-center gap-2.5">
                     <h1 class="text-2xl font-bold text-slate-900 truncate max-w-md sm:max-w-xl">{{ $stock->name }}</h1>
                     <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full border {{ $badge }}">{{ $statusLabel }}</span>
                 </div>
-                <p class="text-xs text-slate-500 mt-0.5">Dibuat pada {{ $stock->created_at ? $stock->created_at->format('d M Y H:i') : '-' }}</p>
+                <p class="text-xs text-slate-600 mt-0.5">Dibuat pada {{ $stock->created_at ? $stock->created_at->format('d M Y H:i') : '-' }}</p>
             </div>
         </div>
 
@@ -45,8 +45,8 @@
             </div>
         @else
             <div class="p-8 text-center bg-gradient-to-b from-slate-50 to-white flex flex-col items-center justify-center border-b border-slate-100">
-                <h3 class="text-sm font-bold text-slate-800">Tambahkan Cover Gambar untuk Barang Ini</h3>
-                <p class="text-xs text-slate-400 mt-1 max-w-sm">Mendukung format gambar PNG, JPG, GIF hingga ukuran 5MB untuk visualisasi barang.</p>
+                <h2 class="text-sm font-bold text-slate-800">Tambahkan Cover Gambar untuk Barang Ini</h2>
+                <p class="text-xs text-slate-600 mt-1 max-w-sm">Mendukung format gambar PNG, JPG, GIF hingga ukuran 5MB untuk visualisasi barang.</p>
                 <button type="button" onclick="document.getElementById('coverPhotoInput').click()" class="mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl shadow-sm transition">Upload Cover Gambar</button>
             </div>
         @endif
@@ -63,23 +63,23 @@
     <div class="space-y-6">
         <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Status Stok</span>
+                <span class="text-xs font-semibold text-slate-600 uppercase tracking-wider block mb-1">Status Stok</span>
                 <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border {{ $badge }}">{{ $statusLabel }}</span>
             </div>
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Jumlah Stok</span>
-                <div class="text-sm font-semibold text-slate-800">{{ $stock->quantity }} {{ $stock->unit }} <span class="text-xs font-normal text-slate-400">(min. {{ $stock->min_stock }})</span></div>
+                <span class="text-xs font-semibold text-slate-600 uppercase tracking-wider block mb-1">Jumlah Stok</span>
+                <div class="text-sm font-semibold text-slate-800">{{ $stock->quantity }} {{ $stock->unit }} <span class="text-xs font-normal text-slate-600">(min. {{ $stock->min_stock }})</span></div>
             </div>
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">SKU</span>
+                <span class="text-xs font-semibold text-slate-600 uppercase tracking-wider block mb-1">SKU</span>
                 <div class="text-sm font-semibold text-slate-800 font-mono">{{ $stock->sku ?? '-' }}</div>
             </div>
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Harga</span>
+                <span class="text-xs font-semibold text-slate-600 uppercase tracking-wider block mb-1">Harga</span>
                 <div class="text-sm font-semibold text-slate-800">{{ !is_null($stock->price) ? 'Rp '.number_format((float) $stock->price, 0, ',', '.') : '-' }}</div>
             </div>
             <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 col-span-2">
-                <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Terakhir Diperbarui</span>
+                <span class="text-xs font-semibold text-slate-600 uppercase tracking-wider block mb-1">Terakhir Diperbarui</span>
                 <div class="text-sm font-semibold text-slate-800">{{ $stock->updated_at ? $stock->updated_at->format('d M Y H:i') : '-' }}</div>
             </div>
         </div>
@@ -89,7 +89,7 @@
             <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
                 <div>
                     <h2 class="text-lg font-bold text-slate-900">Deskripsi Barang</h2>
-                    <p class="text-xs text-slate-500 mt-0.5">Diformat dengan Toast UI Editor / Markdown</p>
+                    <p class="text-xs text-slate-600 mt-0.5">Diformat dengan Toast UI Editor / Markdown</p>
                 </div>
                 <button wire:click="openEditModal" class="px-3 py-1.5 text-xs font-semibold text-blue-600 hover:bg-blue-50 border border-blue-200 rounded-lg transition">Ubah Deskripsi</button>
             </div>
@@ -111,9 +111,9 @@
                     <div x-ref="viewerContainer"></div>
                 </div>
             @else
-                <div class="py-12 text-center text-slate-400">
+                <div class="py-12 text-center text-slate-600">
                     <p class="text-sm font-medium text-slate-600">Belum ada deskripsi untuk barang ini</p>
-                    <p class="text-xs text-slate-400 mt-1">Tambahkan spesifikasi, catatan penyimpanan, atau detail lain.</p>
+                    <p class="text-xs text-slate-600 mt-1">Tambahkan spesifikasi, catatan penyimpanan, atau detail lain.</p>
                     <button wire:click="openEditModal" class="mt-4 px-3.5 py-1.5 text-xs font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition">+ Tambahkan Deskripsi Sekarang</button>
                 </div>
             @endif
@@ -128,28 +128,28 @@
                 <div class="flex items-center justify-between px-6 py-4 bg-blue-600">
                     <div>
                         <h3 class="text-lg font-bold text-white">Ubah Data Stok</h3>
-                        <p class="text-xs text-blue-100">Edit nama, SKU, jumlah, harga, dan deskripsi barang</p>
+                        <p class="text-xs text-white">Edit nama, SKU, jumlah, harga, dan deskripsi barang</p>
                     </div>
-                    <button type="button" @click="show = false; $wire.closeEditModal()" class="text-white/80 hover:text-white text-xl leading-none">&times;</button>
+                    <button type="button" aria-label="Tutup" @click="show = false; $wire.closeEditModal()" class="text-white hover:text-slate-200 text-xl leading-none">&times;</button>
                 </div>
 
                 <form wire:submit.prevent="saveStock" class="flex flex-col flex-1 min-h-0">
                     <div class="space-y-5 px-6 py-5 overflow-y-auto flex-1">
                         <div>
                             <label class="block text-sm font-semibold text-slate-800 mb-1">Nama Barang</label>
-                            <input wire:model="name" type="text" class="{{ $inputCls }}">
+                            <input aria-label="Nama barang" wire:model="name" type="text" class="{{ $inputCls }}">
                             @error('name') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-semibold text-slate-800 mb-1">SKU</label>
-                                <input wire:model="sku" type="text" class="{{ $inputCls }}">
+                                <input aria-label="SKU" wire:model="sku" type="text" class="{{ $inputCls }}">
                                 @error('sku') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-slate-800 mb-1">Satuan</label>
-                                <input wire:model="unit" type="text" class="{{ $inputCls }}">
+                                <input aria-label="Satuan" wire:model="unit" type="text" class="{{ $inputCls }}">
                                 @error('unit') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                             </div>
                         </div>
@@ -157,26 +157,26 @@
                         <div class="grid grid-cols-3 gap-4">
                             <div>
                                 <label class="block text-sm font-semibold text-slate-800 mb-1">Jumlah Stok</label>
-                                <input wire:model="quantity" type="number" min="0" step="1" class="{{ $inputCls }}">
+                                <input aria-label="Jumlah stok" wire:model="quantity" type="number" min="0" step="1" class="{{ $inputCls }}">
                                 @error('quantity') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-slate-800 mb-1">Stok Minimum</label>
-                                <input wire:model="minStock" type="number" min="0" step="1" class="{{ $inputCls }}">
+                                <input aria-label="Stok minimum" wire:model="minStock" type="number" min="0" step="1" class="{{ $inputCls }}">
                                 @error('minStock') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-slate-800 mb-1">Harga (Rp)</label>
-                                <input wire:model="price" type="number" min="0" step="any" class="{{ $inputCls }}">
+                                <input aria-label="Harga" wire:model="price" type="number" min="0" step="any" class="{{ $inputCls }}">
                                 @error('price') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
                             </div>
                         </div>
-                        <p class="text-xs text-slate-400">Status stok dihitung otomatis dari jumlah dan stok minimum.</p>
+                        <p class="text-xs text-slate-600">Status stok dihitung otomatis dari jumlah dan stok minimum.</p>
 
                         <div>
                             <div class="flex items-center justify-between mb-1">
                                 <label class="block text-sm font-semibold text-slate-800">Deskripsi Barang (Toast UI Editor)</label>
-                                <span class="text-xs text-slate-400">Markdown &amp; WYSIWYG</span>
+                                <span class="text-xs text-slate-600">Markdown &amp; WYSIWYG</span>
                             </div>
                             <div wire:ignore
                                  x-data="{

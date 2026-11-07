@@ -2,10 +2,10 @@
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
             <h1 class="text-2xl font-bold text-slate-900">Manajemen Pengguna</h1>
-            <p class="text-sm text-slate-500 mt-1">Daftar semua pengguna terdaftar dan pantau stok barang mereka</p>
+            <p class="text-sm text-slate-600 mt-1">Daftar semua pengguna terdaftar dan pantau stok barang mereka</p>
         </div>
 
-        <div class="w-full sm:w-72 relative">
+        <input aria-label="Cari pengguna" wire:model.live.debounce.300ms="search" type="text" placeholder="Cari nama atau email..." class="w-full pl-3.5 pr-9 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
             <input wire:model.live.debounce.300ms="search" type="text" placeholder="Cari nama atau email..." class="w-full pl-3.5 pr-9 py-2 text-sm rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
             <div wire:loading wire:target="search" class="absolute right-3 top-2.5">
                 <svg class="animate-spin h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24">
@@ -20,7 +20,7 @@
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse text-sm">
                 <thead>
-                    <tr class="bg-slate-50 border-b border-slate-200 text-xs font-semibold uppercase tracking-wider text-slate-500">
+                    <tr class="bg-slate-50 border-b border-slate-200 text-xs font-semibold uppercase tracking-wider text-slate-600">
                         <th class="py-3.5 px-6">Nama Pengguna</th>
                         <th class="py-3.5 px-6">Email</th>
                         <th class="py-3.5 px-6">Role</th>
@@ -34,7 +34,7 @@
                         <tr class="hover:bg-slate-50/80 transition">
                             <td class="py-4 px-6">
                                 <div class="font-semibold text-slate-900">{{ $user->name }}</div>
-                                <div class="text-xs text-slate-400 font-mono">&#64;{{ $user->username }}</div>
+                                <div class="text-xs text-slate-600 font-mono">&#64;{{ $user->username }}</div>
                             </td>
                             <td class="py-4 px-6 text-slate-600">
                                 {{ $user->email }}
@@ -47,7 +47,7 @@
                             <td class="py-4 px-6 text-center font-bold text-slate-700">
                                 {{ $user->stocks_count }}
                             </td>
-                            <td class="py-4 px-6 text-slate-500 text-xs">
+                            <td class="py-4 px-6 text-slate-600 text-xs">
                                 {{ $user->created_at ? $user->created_at->format('d M Y H:i') : '-' }}
                             </td>
                             <td class="py-4 px-6 text-right">
@@ -62,7 +62,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="py-12 text-center text-slate-500">
+                            <td colspan="6" class="py-12 text-center text-slate-600">
                                 Tidak ada data pengguna yang ditemukan.
                             </td>
                         </tr>
