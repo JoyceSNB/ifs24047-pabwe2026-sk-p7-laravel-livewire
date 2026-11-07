@@ -95,10 +95,10 @@
 
     <!-- Create / Edit Modal -->
     @if ($showFormModal)
-        <div x-data="{ show: true }" x-show="show" x-cloak class="{{ $modalCls }}">
+        <div x-data="{ show: true }" x-show="show" x-cloak class="{{ $modalCls }}" role="dialog" aria-modal="true" aria-labelledby="modal-form-stok-title">
             <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 max-h-[90vh] overflow-hidden flex flex-col">
                 <div class="flex items-center justify-between px-6 py-4 bg-blue-600">
-                    <h2 class="text-lg font-bold text-white">{{ $editingStockId ? 'Edit Stok' : 'Tambah Stok Baru' }}</h2>
+                    <h2 id="modal-form-stok-title" class="text-lg font-bold text-white">{{ $editingStockId ? 'Edit Stok' : 'Tambah Stok Baru' }}</h2>
                     <button type="button" aria-label="Tutup" @click="show = false; $wire.closeFormModal()" class="text-white hover:text-slate-200 text-xl leading-none">&times;</button>
                 </div>
 
@@ -163,10 +163,10 @@
 
     <!-- Import Modal -->
     @if ($showImportModal)
-        <div x-data="{ show: true }" x-show="show" x-cloak class="{{ $modalCls }}">
+        <div x-data="{ show: true }" x-show="show" x-cloak class="{{ $modalCls }}" role="dialog" aria-modal="true" aria-labelledby="modal-import-title">
             <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden">
                 <div class="flex items-center justify-between px-6 py-4 bg-slate-700">
-                    <h2 class="text-lg font-bold text-white">Import Stok dari File Excel</h2>
+                    <h2 id="modal-import-title" class="text-lg font-bold text-white">Import Stok dari File Excel</h2>
                     <button type="button" aria-label="Tutup" @click="show = false; $wire.closeImportModal()" class="text-white hover:text-slate-200 text-xl leading-none">&times;</button>
                 </div>
 
@@ -194,11 +194,11 @@
 
     <!-- AI Stock Generator Modal -->
     @if ($showAiModal)
-        <div x-data="{ show: true }" x-show="show" x-cloak class="{{ $modalCls }}">
+        <div x-data="{ show: true }" x-show="show" x-cloak class="{{ $modalCls }}" role="dialog" aria-modal="true" aria-labelledby="modal-ai-title">
             <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 max-h-[90vh] overflow-hidden flex flex-col">
                 <div class="flex items-center justify-between px-6 py-4 bg-violet-600">
                     <div>
-                        <h2 class="text-lg font-bold text-white">Generate Stok Otomatis dengan AI</h2>
+                        <h2 id="modal-ai-title" class="text-lg font-bold text-white">Generate Stok Otomatis dengan AI</h2>
                         <p class="text-xs text-white">Minta AI membuatkan beberapa item stok terstruktur sesuai kebutuhan Anda</p>
                     </div>
                     <button type="button" aria-label="Tutup" @click="show = false; $wire.closeAiModal()" class="text-white hover:text-slate-200 text-xl leading-none">&times;</button>
@@ -237,7 +237,7 @@
                             <div class="space-y-2">
                                 @foreach ($aiGeneratedItems as $index => $item)
                                     <label wire:key="ai-item-{{ $index }}" class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer">
-                                        <input aria-label="Pilih item AI nomor {{ $index + 1 }}" type="checkbox" wire:model="aiSelectedIndices" value="{{ $index }}" class="mt-1 rounded border-slate-300">
+                                        <input aria-label="Pilih item AI nomor {{ $index + 1 }}" type="checkbox" wire:model="aiSelectedIndices" value="{{ $index }}" class="mt-1 h-5 w-5 rounded border-slate-300">
                                         <div class="min-w-0 text-sm">
                                             <span class="font-bold text-slate-900">{{ $item['name'] }}</span>
                                             <span class="text-slate-600">{{ $item['quantity'] ?? 0 }} {{ $item['unit'] ?? 'pcs' }}@if (!is_null($item['price'] ?? null)) &bull; Rp {{ number_format((float) $item['price'], 0, ',', '.') }}@endif</span>
@@ -264,10 +264,10 @@
 
     <!-- Delete Stock Confirmation Modal -->
     @if ($confirmingStockDeletionId)
-        <div x-data="{ show: true }" x-show="show" x-cloak class="{{ $modalCls }}">
+        <div x-data="{ show: true }" x-show="show" x-cloak class="{{ $modalCls }}" role="alertdialog" aria-modal="true" aria-labelledby="modal-hapus-stok-title">
             <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden">
                 <div class="px-6 py-4 bg-rose-600">
-                    <h2 class="text-base font-bold text-white">Konfirmasi Hapus Stok</h2>
+                    <h2 id="modal-hapus-stok-title" class="text-base font-bold text-white">Konfirmasi Hapus Stok</h2>
                     <p class="text-xs text-rose-100">Tindakan ini tidak dapat dibatalkan</p>
                 </div>
                 <div class="px-6 py-5">

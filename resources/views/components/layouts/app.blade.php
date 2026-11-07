@@ -43,7 +43,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                         </svg>
                     </span>
-                    <span class="text-slate-900 tracking-tight">StockApp <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent font-extrabold">Pro</span></span>
+                    <span class="text-slate-900 tracking-tight">StockApp <span class="text-blue-700 font-extrabold">Pro</span></span>
                 </a>
                 <button type="button" @click="sidebarOpen = false" aria-label="Tutup menu" class="md:hidden text-slate-600 hover:text-slate-800">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -133,7 +133,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                         </svg>
                     </span>
-                    <span class="font-bold text-slate-900 tracking-tight">StockApp <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent font-extrabold">Pro</span></span>
+                    <span class="font-bold text-slate-900 tracking-tight">StockApp <span class="text-blue-700 font-extrabold">Pro</span></span>
                 </div>
                 <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold {{ auth()->user()->isAdmin() ? 'bg-purple-100 text-purple-800' : 'bg-emerald-100 text-emerald-800' }}">
                     {{ ucfirst(auth()->user()->role) }}
@@ -183,7 +183,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                             </svg>
                         </span>
-                        <span class="text-slate-900 tracking-tight">StockApp <span class="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent font-extrabold">Pro</span></span>
+                        <span class="text-slate-900 tracking-tight">StockApp <span class="text-blue-700 font-extrabold">Pro</span></span>
                     </a>
                     <nav aria-label="Autentikasi" class="space-x-2">
                         <a href="{{ route('login') }}" class="px-3 py-1.5 text-sm font-medium text-slate-600 hover:text-slate-900">

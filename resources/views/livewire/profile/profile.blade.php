@@ -138,6 +138,7 @@
     <!-- Modal Crop Foto Profil -->
     @if ($showCropModal && $photo)
         <div class="modal-scroll-lock fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-4 bg-slate-900/50 backdrop-blur-sm"
+             role="dialog" aria-modal="true" aria-labelledby="modal-crop-title"
              wire:ignore.self
              x-data="{
                 cropper: null,
@@ -169,7 +170,7 @@
              x-init="$nextTick(() => { initCropper(); })">
             <div class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col">
                 <div class="flex items-center justify-between px-6 py-4 bg-blue-600">
-                    <h3 class="text-base font-bold text-white flex items-center space-x-2">
+                    <h3 id="modal-crop-title" class="text-base font-bold text-white flex items-center space-x-2">
                         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                         <span>Sesuaikan Potongan Foto (Rasio 1:1)</span>
                     </h3>
@@ -207,6 +208,7 @@
             x-data="{ show: true }"
             x-show="show"
             x-cloak
+            role="alertdialog" aria-modal="true" aria-labelledby="modal-hapus-foto-title"
             class="modal-scroll-lock fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-4 bg-slate-900/50 backdrop-blur-sm">
             <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden">
                 <div class="flex items-center space-x-3 px-6 py-4 bg-rose-600">
@@ -216,7 +218,7 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="text-base font-bold text-white">Konfirmasi Hapus Foto Profil</h3>
+                        <h3 id="modal-hapus-foto-title" class="text-base font-bold text-white">Konfirmasi Hapus Foto Profil</h3>
                         <p class="text-xs text-rose-100">Foto akan dihapus dan kembali ke avatar default</p>
                     </div>
                 </div>

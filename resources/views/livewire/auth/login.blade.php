@@ -20,7 +20,7 @@
 
             <div class="flex items-center justify-between">
                 <label class="flex items-center space-x-2 text-sm text-slate-600 cursor-pointer">
-                    <input aria-label="Ingat saya" wire:model="remember" type="checkbox" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                    <input aria-label="Ingat saya" wire:model="remember" type="checkbox" class="h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
                     <span>Ingat Saya</span>
                 </label>
             </div>

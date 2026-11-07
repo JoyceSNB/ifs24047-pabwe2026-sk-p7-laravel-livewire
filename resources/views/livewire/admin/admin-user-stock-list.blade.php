@@ -37,7 +37,7 @@
 
     <!-- Table of user's stocks -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto" tabindex="0" role="region" aria-label="Tabel stok pengguna">
             <table class="w-full text-left border-collapse text-sm">
                 <thead>
                     <tr class="bg-slate-50 border-b border-slate-200 text-xs font-semibold uppercase tracking-wider text-slate-600">

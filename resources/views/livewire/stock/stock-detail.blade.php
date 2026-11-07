@@ -123,11 +123,12 @@
     <!-- Edit Modal -->
     @if ($showEditModal)
         <div x-data="{ show: true }" x-show="show" x-cloak
+             role="dialog" aria-modal="true" aria-labelledby="modal-ubah-stok-title"
              class="modal-scroll-lock fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-4 bg-slate-900/50 backdrop-blur-sm">
             <div class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 max-h-[90vh] overflow-hidden flex flex-col">
                 <div class="flex items-center justify-between px-6 py-4 bg-blue-600">
                     <div>
-                        <h3 class="text-lg font-bold text-white">Ubah Data Stok</h3>
+                        <h3 id="modal-ubah-stok-title" class="text-lg font-bold text-white">Ubah Data Stok</h3>
                         <p class="text-xs text-white">Edit nama, SKU, jumlah, harga, dan deskripsi barang</p>
                     </div>
                     <button type="button" aria-label="Tutup" @click="show = false; $wire.closeEditModal()" class="text-white hover:text-slate-200 text-xl leading-none">&times;</button>
@@ -223,10 +224,11 @@
     <!-- Konfirmasi Hapus Stok -->
     @if ($confirmingStockDeletion)
         <div x-data="{ show: true }" x-show="show" x-cloak
+             role="alertdialog" aria-modal="true" aria-labelledby="modal-hapus-stok-title"
              class="modal-scroll-lock fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-4 bg-slate-900/50 backdrop-blur-sm">
             <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden">
                 <div class="px-6 py-4 bg-rose-600">
-                    <h3 class="text-base font-bold text-white">Konfirmasi Hapus Stok</h3>
+                    <h3 id="modal-hapus-stok-title" class="text-base font-bold text-white">Konfirmasi Hapus Stok</h3>
                     <p class="text-xs text-rose-100">Tindakan ini tidak dapat dibatalkan</p>
                 </div>
                 <div class="px-6 py-5">
@@ -246,10 +248,11 @@
     <!-- Konfirmasi Hapus Cover -->
     @if ($confirmingCoverDeletion)
         <div x-data="{ show: true }" x-show="show" x-cloak
+             role="alertdialog" aria-modal="true" aria-labelledby="modal-hapus-cover-title"
              class="modal-scroll-lock fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overscroll-contain p-4 bg-slate-900/50 backdrop-blur-sm">
             <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-200 overflow-hidden">
                 <div class="px-6 py-4 bg-rose-600">
-                    <h3 class="text-base font-bold text-white">Konfirmasi Hapus Cover</h3>
+                    <h3 id="modal-hapus-cover-title" class="text-base font-bold text-white">Konfirmasi Hapus Cover</h3>
                     <p class="text-xs text-rose-100">Gambar cover akan dihapus dari stok ini</p>
                 </div>
                 <div class="px-6 py-5">
